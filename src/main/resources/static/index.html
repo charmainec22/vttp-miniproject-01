@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Stocks</title>
+        <style>
+            .center-it {
+                width: 100vw;
+                /* height: 100vh; */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="center-it" style="margin-top: 10vh;">
+            <h1>Yet Another Stock App</h1>
+        </div>
+
+        <form method="GET" action="/stocks">
+            <div class="center-it">
+                <input type="text" name="symbol" id="symbol" size="20" placeholder="Stock name" required>
+                <button type="submit">Get stocks</button>
+            </div>
+        </form>
+        
+    </body>
+</html>
