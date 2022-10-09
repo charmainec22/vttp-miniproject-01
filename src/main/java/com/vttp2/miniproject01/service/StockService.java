@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.vttp2.miniproject01.models.Query;
 import com.vttp2.miniproject01.models.StockModel;
 import com.vttp2.miniproject01.models.Stocks;
+import com.vttp2.miniproject01.models.User;
 import com.vttp2.miniproject01.repo.StocksRepository;
 
 import jakarta.json.Json;
@@ -122,6 +124,50 @@ public class StockService {
         return Optional.empty();
         
     }
+
+    public List<String> addFav(String user, String symbol){
+        List<String> favList = new ArrayList<>();
+        favList.add(symbol);
+
+        stockRepo.addFav(user, symbol);
+
+        return favList;
+    }
+
+    public List<Stocks> updateList(List<Stocks> listOfStocks){
+        for (Stocks s: listOfStocks) {
+            String ticker = s.getSymbol(); 
+            Optional <Stocks> w = getStocks(ticker);
+            s = w.get();
+        }
+        return listOfStocks;
+    }
+
+    // public Optional<Stocks> getQuotes (String ticker){
+
+    //     String quoteUrl = UriComponentsBuilder.fromUriString(qURL)
+    //         .queryParam("apikey", apiKey)
+    //         .queryParam("symbol", ticker)
+    //         .toUriString();
+
+    //     logger.info(">>> Quotes URL API address  : " + quoteUrl);
+
+    //     RestTemplate template = new RestTemplate();
+    //     ResponseEntity<String> resp = null;
+        
+    //     try{
+    //         resp = template.getForEntity(quoteUrl, String.class);
+    //         logger.info(">>> TEST " + resp.getBody());
+    //         Stocks q = Stocks.createJson(ticker, resp.getBody());
+    //         return Optional.of(q);
+    //     }
+    //     catch(Exception e){
+    //         logger.error(e.getMessage());
+    //         e.printStackTrace();
+    //     }
+    //     return Optional.empty();
+    // }
+
 
     
 }

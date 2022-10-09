@@ -3,6 +3,8 @@ package com.vttp2.miniproject01.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,19 @@ import com.vttp2.miniproject01.service.UserService;
 
 @Controller
 public class LoginController {
+
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
     
     @Autowired
     private UserService userSvc;
 
     @GetMapping(path = "/")
     public String getLoginPage() {
+        return "login";
+    }
+
+    @GetMapping(path = "/login")
+    public String LoginPage() {
         return "login";
     }
 
@@ -41,6 +50,7 @@ public class LoginController {
 
        
         if (loginStatus == false) {
+            model.addAttribute("loginStatus", loginStatus);
             String errorLogin = "Incorrect email or password";
             model.addAttribute("errorMessage", errorLogin);
             return "login";
@@ -49,8 +59,10 @@ public class LoginController {
         User userDetails = userSvc.userDetails(email);
         
         session.setAttribute("userDetails", userDetails);
+        logger.info("userdetail is" + userDetails);
+        //System.out.println("userdetail is" + userDetails);
         model.addAttribute("userDetails", userDetails);
-        return "home";
+        return "quote";
     }
 
     @PostMapping(path = "/register")

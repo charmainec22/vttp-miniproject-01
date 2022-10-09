@@ -46,8 +46,8 @@ public class SignUpController {
         String payload = userObj.toString();
 
         //? Store data in Redis Database
-        userSvc.createAccount(email, payload);
+        userSvc.createAccount(user);
 
-        return "/login";
+        return "quote";
     } 
 }

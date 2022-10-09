@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stocks</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <title>WATCHLIST</title>
 </head>
 <body>
-       <!-- Navbar -->
+    <div class="d-flex justify-content-center mt-2">
+        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/livedata">Live Data </a>
+        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/history">History </a>
+        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/favourite">My Watchlist </a>
+        <li><a class="nav-link" th:href="@{'/favourite/' + ${email}}"> FAV </a></li>
+    </div>
+
+      <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Container wrapper -->
     <div class="container-fluid">
@@ -50,7 +53,7 @@
             <a class="nav-link" href="#">Team</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{'/favourite/' + ${email}}">Favourite</a>
+            <a class="nav-link" href="#">Projects</a>
           </li>
         </ul>
         <!-- Left links -->
@@ -132,67 +135,35 @@
   </nav>
   <!-- Navbar -->
 
-  <table class="table">
-      <h2 style="text-align: center; padding-top: 10%;"><span data-th-text="${stocks.symbol}"></span></h2>
-    <thead>
-      <tr>
-        <th scope="col">Currency</th>
-        <th scope="col">Current Price</th>
-        <th scope="col">Open</th>
-        <th scope="col">High</th>
-        <th scope="col">Low</th>
-        <th scope="col">Volume</th>
-        <th scope="col">Market</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span data-th-text="${stocks.currency}"></span></td>
-        <td><span data-th-text="${stocks.price}"></span></td>
-        <td><span data-th-text="${stocks.open}"></span></td>
-        <td><span data-th-text="${stocks.high}"></span></td>
-        <td><span data-th-text="${stocks.low}"></span></td>
-        <td><span data-th-text="${stocks.volume}"></span></td>
-        <td><span data-th-text="${stocks.market}"></span></td>
-      </tr>
-    </tbody>
-  </table>
+    
+    <!-- <h1>Stock for <span data-th-text="${stocks.symbol}"></span></h1> -->
 
+    <table id="myfavourite">
+        <tr>
+            <th><h3> Symbol </h3></th>
+            <th><h3> 52 Week High </h3></th>
+            <th><h3> 52 Week Low </h3></th>
+            <th><h3> Last Price </h3></th>
 
-    <!-- <h1>Stock for <span data-th-text="${stocks.symbol}"></span></h1>
-
-    <h1>Currency is <span data-th-text="${stocks.currency}"></span></h1>
-
-    <h1>Price is <span data-th-text="${stocks.price}"></span></h1>
-    <h1>Open is <span data-th-text="${stocks.open}"></span></h1>
-    <h1>High is <span data-th-text="${stocks.high}"></span></h1>
-    <h1>Low is <span data-th-text="${stocks.low}"></span></h1>
-    <h1>Volume is <span data-th-text="${stocks.volume}"></span></h1>
-    <h1>Market is <span data-th-text="${stocks.market}"></span></h1>
-     -->
-
- 
-
-    <form 
-    action="#" 
-    th:action="@{'/add/' + ${email}}"  
-    th:object="${stocks}"
-    method="POST" >
-
-        <input type="hidden" th:field="${stocks.symbol}"></input>
-        <input type="hidden" th:field="${stocks.open}"></input>
-        <input type="hidden" th:field="${stocks.high}"></input>
-        <input type="hidden" th:field="${stocks.low}"></input>
-
-    <button type="submit">Add to fav</button>
-   
-    </form>
-
-    <form th:action="@{/favourite}" method="POST">
-        <input type="hidden" name="symbol" data-th-value="${stocks.symbol}">
-        <button class="bk-bookback" type="submit"><i class="bi bi-bookmark-heart-fill"></i>
-          Favourite</button>
-      </form>
-
+        </tr>
+        
+        <div th:object ="${favourite}">
+            <!--changed from *{listOfQuotes} to ${listOfQuotes}-->
+            <tr th:each="stocks: ${listOfStocks}">
+                <td th:text="${symbol}"></td>
+                <td th:text="${open}"></td>
+                <td th:text="${high}"></td>
+                <td th:text="${low}"></td> 
+                <!-- <td> 
+                    <a th:href="@{'/delete/'+ ${email} + '/' + ${stocks.symbol}}">
+                    <button type="button">Delete</button>
+                    </a>
+                </td> -->
+            </tr>
+            
+        </div>
+    </table>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>  
 </body>
 </html>

@@ -16,12 +16,12 @@ public class HomeController {
     @Autowired
     UserService userSvc;
 
-    @GetMapping("/login")
+    @GetMapping("/home")
     public String getHome(Model model, HttpSession session){
         User userDetails = (User) session.getAttribute("userDetails");
         String name = userDetails.getName();
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("name", name);
-        return "login";
+        return "home";
     }
 }

@@ -20,10 +20,14 @@ public class UserService {
 
     private JsonObject jsonObj;
 
-    public void createAccount(String email, String payload) {
-        userRepo.create(email, payload);
-        System.out.println("User created");
+    public void createAccount(User user) {
+        userRepo.create(user.getEmail(), user.toMap());
     }
+
+    public void updateProfile(String email, String key, String value) {
+        userRepo.updateUser(email, key, value);
+    }
+
 
     public void deleteProfile(String email) {
         userRepo.deleteUser(email);
@@ -32,34 +36,29 @@ public class UserService {
 
     public boolean login(String email, String password) {
 
-        Optional<String> redisValue = userRepo.findUser(email);
+        Optional<User> redisValue = userRepo.findUserByEmail(email);
 
         if (redisValue.isEmpty()) {
             return false;
         } 
-        String payload = redisValue.get();
-
-        jsonObj = toJson(payload);
-        String redis_password = jsonObj.getString("password");
-        if (password.equals(redis_password)) {
+        String redisPassword = redisValue.get().getPassword();
+        if (password.equals(redisPassword)) {
             return true;
         }
+
         return false;
     }
 
     public boolean checkProfile(String email) {
 
-        Optional<String> redisValue = userRepo.findUser(email);
+        Optional<User> redisValue = userRepo.findUserByEmail(email);
 
         if (redisValue.isEmpty()) {
             return false;
         } 
-        String payload = redisValue.get();
-
-        jsonObj = toJson(payload);
-
-        // String redis_profile = jsonObj.getString("profile");
+        //String redis_profile = redisValue.get().getProfile();
         
+        //? Check if password is correct
         // if (redis_profile.isBlank()) {
         //     return false;
         // }
@@ -68,7 +67,8 @@ public class UserService {
     }
 
     public User userDetails(String email) {
-        return User.loginUser(jsonObj);
+        Optional<User> userOpt = userRepo.findUserByEmail(email);
+        return userOpt.get();
     }
 
     public JsonObject toJson(String payload) {
