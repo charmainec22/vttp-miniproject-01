@@ -39,13 +39,6 @@ public class SignUpController {
 
         User user = new User(name, username, email, password);
 
-        //?  Convert User model -> JSON object
-        JsonObject userObj = user.toJson();
-
-        //? Convert JSON object -> String
-        String payload = userObj.toString();
-
-        //? Store data in Redis Database
         userSvc.createAccount(user);
 
         return "quote";

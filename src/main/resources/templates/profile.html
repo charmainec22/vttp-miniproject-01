@@ -18,142 +18,63 @@
     </head>
     <body>
         <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-  
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Navbar brand -->
-        <!-- <a class="navbar-brand mt-2 mt-lg-0" href="#">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-            height="15"
-            alt="MDB Logo"
-            loading="lazy"
-          />
-        </a> -->
-        <h3 class="text-primary">xStocks</h3>
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/profile}">Profile</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
-  
-      <!-- Right elements -->
-      <div class="d-flex align-items-center">
-        <!-- Icon -->
-        <a class="text-reset me-3" href="#">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-  
-        <!-- Notifications -->
-        <div class="dropdown">
-          <a
-            class="text-reset me-3 dropdown-toggle hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fas fa-bell"></i>
-            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li>
-              <a class="dropdown-item" href="#">Some news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
-        </div>
-        <!-- Avatar -->
-        <div class="dropdown">
-          <a
-            class="dropdown-toggle d-flex align-items-center hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuAvatar"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-              class="rounded-circle"
-              height="25"
-              alt="Black and White Portrait of a Man"
-              loading="lazy"
-            />
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuAvatar"
-          >
-            <li>
-              <a class="dropdown-item" href="#">My profile</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- Right elements -->
-    </div>
-    <!-- Container wrapper -->
-  </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+              <!-- Toggle button -->
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+          
+              <!-- Collapsible wrapper -->
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+                <h3 class="text-primary">xStocks</h3>
+              <!-- Left links -->
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/quote}">Home</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" th:href="@{/favourite}">Favourite</a>
+                </li>
+              </ul>
+              <!-- Left links -->
+              </div>
+             
+               <div class="d-flex align-items-center">
+       
+                <a class="nav-link" th:href="@{/profile}">My Profile&nbsp;&nbsp;</a>
+                <form action="/logout" method="post">
+                    <button type="submit">Logout</button>
+                    <!-- <a class="nav-link">Logout</a> -->
+                </form>
+                <!-- <a class="nav-link" th:href="@{/logout}">Logout</a> -->
+         
+          </div>
+              <!-- Right elements -->
+            </div>
+            <!-- Container wrapper -->
+          </nav>
   <!-- Navbar -->
 
 
-        <!-- <div class="center-it" style="margin-top: 10vh;">
-            <h1>Welcome to xStocks</h1>
-        </div>
-
-        <form method="GET" action="/stocks">
-            <div class="center-it">
-                <input type="text" name="symbol" id="symbol" size="20" placeholder="Stock name" required>
-                <button type="submit">Get stocks</button>
-            </div>
-        </form> -->
+      
 
         <div class="card-body py-5 px-md-5">
 
             <div class="row d-flex justify-content-center">
               <div class="col-lg-8">
                 <h2 class="fw-bold mb-5">Profile</h2>
+                <p>Name:<p data-th-text="${userDetails.name}"></p></p>
                 <p>Username:<p data-th-text="${userDetails.username}"></p></p>
                 <p>Email:<p data-th-text="${userDetails.email}"></p></p>
                 
@@ -163,9 +84,9 @@
                   </button>
       
                 </form>
-
+                <p></p>
                 <form action="/deleteUser" method="POST">
-                    <button type="submit" class="btn btn-primary w-100">
+                    <button type="submit" class="btn btn-danger w-100">
                       Delete Account
                     </button>
         

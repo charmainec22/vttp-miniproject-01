@@ -66,18 +66,22 @@ public class StockController {
 
     @PostMapping(path = "/update") 
     public String updateProfilePage(Model model, HttpSession session, @RequestBody MultiValueMap<String, String> form) {
-        User userDetails = (User) session.getAttribute("userDetails");
-
+        
+        //User userDetails = (User) session.getAttribute("userDetails");
+        
         String name = form.getFirst("name");
         String username = form.getFirst("username");
         String password = form.getFirst("password");
         String email = form.getFirst("email");
+
+        User userDetails = (User) session.getAttribute("userDetails");
 
         userSvc.updateProfile(email, "name", name);
         userSvc.updateProfile(email, "password", password);
         userSvc.updateProfile(email, "username", username);
         userSvc.updateProfile(email, "email", email);
 
+        logger.info(">>>updated profile is " + userDetails);
 
         model.addAttribute("userDetails", userDetails);
         return "profile";
@@ -87,8 +91,17 @@ public class StockController {
     public String deleteProfilePage(Model model, HttpSession session) {
         User userDetails = (User) session.getAttribute("userDetails");
         String userEmail = userDetails.getEmail();
+        //delete profile 
         userSvc.deleteProfile(userEmail);
         
+        return "login";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        //remove user session details 
+        session.removeAttribute("userDetails");
+        session.invalidate();
         return "login";
     }
 
@@ -111,57 +124,8 @@ public class StockController {
         return "stocks";
     }
  
-    @PostMapping("/add/{email}")
-    public String add (@PathVariable(name="email", required=true) String email, @ModelAttribute Stocks stocks, Model model, HttpSession session) {
-        logger.info(">>> TEST" + stocks.getSymbol());
-        logger.info("TESTTESTTESTTEST");
-        Favourite favourite = new Favourite();
-        logger.info(">>>TEST222222222222222222");
-        //get user detail using session
-        User user = (User) session.getAttribute("userDetails");
-        if (user != null){
-            email = user.getEmail();
-        }
-        logger.info (">>>> Email: " + email);
-        //logger.info(user);
-        User users = userSvc.userDetails(email);
-        logger.info(">>>TEST33333333333333333333333");
-        if (user.getfavourites() != null) {
-            favourite = user.getfavourites();  
-        }
-        favourite.addQuotes(stocks);
-        logger.info("STOCK ADDED IS " + stocks);
-        user.setfavourites(favourite);
-        //logger.info("fav added is: "+ favourite);
-        logger.info("TEST");
-        redisSvc.save(user);
-        model.addAttribute("favourite", user.getfavourites());
-        logger.info("fav added is: "+ user.getfavourites().toString());
-        model.addAttribute("email", email); 
-        logger.info("email added is: "+ email);
-        return "favourite"; 
-    }
-
-    //href always a Get
-    @GetMapping ("/favourite/{email}")
-    public String favourite ( String email, Model model, HttpSession session) {
-        //User user = redisSvc.findByUsername(email).get();
-        User user = (User) session.getAttribute("userDetails");
-        if (user != null){
-            email = user.getEmail();
-        }
-        logger.info("email is: "+ email);
-        //to refresh and get the latest prices
-        List<Stocks> listOfQuotes = user.getfavourites().getListOfQuotes();
-        logger.info("list added is: "+ listOfQuotes);
-        listOfQuotes = stocksSvc.updateList(listOfQuotes);
-        user.getfavourites().setListOfQuotes(listOfQuotes);
-        model.addAttribute("favourite", user.getfavourites());
-        model.addAttribute("email", email); 
-        return "favourite"; 
-    }
-
-    @PostMapping(path = "/favourite")
+   
+    @PostMapping(path = "/addfavourite")
     public String favouriteStock(Model model, HttpSession session, @RequestBody MultiValueMap<String, String> form) {
         //? When user click on Favourite button it will get the current book ID
         String symbol = form.getFirst("symbol");
@@ -170,11 +134,25 @@ public class StockController {
         User userDetails = (User) session.getAttribute("userDetails");
         List<String> favouriteStock = stocksSvc.addFav(userDetails.getEmail().toString(), symbol);  
         logger.info(">>>favstock " + favouriteStock);
+        logger.info(">>>favstock symbol " + symbol);
         userDetails.setFavourite(symbol);
 
         model.addAttribute("favStock", favouriteStock);
         model.addAttribute("userDetails", userDetails);
         return "favourite";
+    }
+
+    @GetMapping(path = "/favourite")
+    public String FavPage(HttpSession session,Model model) {
+        User userDetails = (User) session.getAttribute("userDetails");
+        logger.info("userdetail: "+ userDetails);
+        model.addAttribute("userDetails", userDetails);
+        return "favourite";
+    }
+
+    @GetMapping(path = "/quote")
+    public String homePage () {
+        return "quote";
     }
 
     // @GetMapping

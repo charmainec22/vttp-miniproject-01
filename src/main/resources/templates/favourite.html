@@ -8,160 +8,68 @@
     <title>WATCHLIST</title>
 </head>
 <body>
-    <div class="d-flex justify-content-center mt-2">
-        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/livedata">Live Data </a>
-        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/history">History </a>
-        <a class="btn me-2" role="button" style="background-color:#78c1e6; color:#faf3e3" href="/favourite">My Watchlist </a>
-        <li><a class="nav-link" th:href="@{'/favourite/' + ${email}}"> FAV </a></li>
-    </div>
-
+  
       <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-  
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Navbar brand -->
-        <!-- <a class="navbar-brand mt-2 mt-lg-0" href="#">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-            height="15"
-            alt="MDB Logo"
-            loading="lazy"
-          />
-        </a> -->
-        <h3 class="text-primary">xStocks</h3>
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Projects</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
-  
-      <!-- Right elements -->
-      <div class="d-flex align-items-center">
-        <!-- Icon -->
-        <a class="text-reset me-3" href="#">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-  
-        <!-- Notifications -->
-        <div class="dropdown">
-          <a
-            class="text-reset me-3 dropdown-toggle hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
             aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            <i class="fas fa-bell"></i>
-            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li>
-              <a class="dropdown-item" href="#">Some news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <i class="fas fa-bars"></i>
+          </button>
+      
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+            <h3 class="text-primary">xStocks</h3>
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/quote}">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/favourite}">Favourite</a>
             </li>
           </ul>
-        </div>
-        <!-- Avatar -->
-        <div class="dropdown">
-          <a
-            class="dropdown-toggle d-flex align-items-center hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuAvatar"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-              class="rounded-circle"
-              height="25"
-              alt="Black and White Portrait of a Man"
-              loading="lazy"
-            />
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuAvatar"
-          >
-            <li>
-              <a class="dropdown-item" href="#">My profile</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Logout</a>
-            </li>
-          </ul>
-        </div>
+          <!-- Left links -->
+          </div>
+         
+          <div class="d-flex align-items-center">
+       
+            <a class="nav-link" th:href="@{/profile}">My Profile&nbsp;&nbsp;</a>
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+                <!-- <a class="nav-link">Logout</a> -->
+            </form>
+            <!-- <a class="nav-link" th:href="@{/logout}">Logout</a> -->
+     
       </div>
-      <!-- Right elements -->
-    </div>
-    <!-- Container wrapper -->
-  </nav>
+          <!-- Right elements -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
   <!-- Navbar -->
 
-    
-    <!-- <h1>Stock for <span data-th-text="${stocks.symbol}"></span></h1> -->
-
-    <table id="myfavourite">
-        <tr>
-            <th><h3> Symbol </h3></th>
-            <th><h3> 52 Week High </h3></th>
-            <th><h3> 52 Week Low </h3></th>
-            <th><h3> Last Price </h3></th>
-
-        </tr>
+ 
+    <!-- <h1>Stock for <span data-th-text="${favStock.symbol}"></span></h1> -->
+    <div class="center-it" style="margin-top: 10vh;">
         
-        <div th:object ="${favourite}">
-            <!--changed from *{listOfQuotes} to ${listOfQuotes}-->
-            <tr th:each="stocks: ${listOfStocks}">
-                <td th:text="${symbol}"></td>
-                <td th:text="${open}"></td>
-                <td th:text="${high}"></td>
-                <td th:text="${low}"></td> 
-                <!-- <td> 
-                    <a th:href="@{'/delete/'+ ${email} + '/' + ${stocks.symbol}}">
-                    <button type="button">Delete</button>
-                    </a>
-                </td> -->
-            </tr>
-            
-        </div>
+        <h1>Favourite</h1>
+    </div>
+
+    <div class="center-it">
+        <h3>Stock:<h3 data-th-text="${userDetails.favourite}"></h3></h3>
+    </div>
+    <!-- <p>Stock:<p data-th-text="${userDetails.favourite}"></p></p> -->
+
     </table>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>  

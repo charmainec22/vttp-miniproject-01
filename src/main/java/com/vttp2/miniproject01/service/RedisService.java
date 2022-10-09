@@ -107,4 +107,11 @@ public class RedisService {
         return createJson;
 
     }
+
+    public Optional<User> restResponse(String username){
+        logger.info("Restcontoller calling for >>>" + username);
+        User restUser = (User) redisTemplate.opsForValue().get(username);
+        return Optional.of(restUser);
+    }
+    
 }

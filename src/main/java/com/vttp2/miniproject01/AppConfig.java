@@ -27,14 +27,14 @@ public class AppConfig {
     private Integer redisDatabase;
     @Value("${spring.redis.username}")
     private String redisUsername;
-    // @Value("${REDIS_PASSWORD}")
-    // private String redisPassword;
+    @Value("${REDIS_PASSWORD}")
+    private String redisPassword;
 
     @Bean("redislab")
     public RedisTemplate<String, String> initRedisTemplate() {
         // Configure the Redis database
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
-        String redisPassword = System.getenv("spring.redis.password");
+        //String redisPassword = System.getenv("spring.redis.password");
         redisConfig.setHostName(redisHost);
         redisConfig.setPort(redisPort);
         redisConfig.setDatabase(redisDatabase);
@@ -62,7 +62,7 @@ public class AppConfig {
     @Scope("singleton")
     public RedisTemplate<String, User> redisTemplate() {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-        String redisPassword = System.getenv("spring.redis.password");
+        //String redisPassword = System.getenv("spring.redis.password");
         config.setHostName(redisHost);
         config.setPort(redisPort);
         config.setPassword(redisPassword);
